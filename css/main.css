@@ -70,7 +70,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 40px;
+    padding-top: 15px;
 }
 
 .header-menu .logo {
@@ -161,7 +161,7 @@ body {
 .tour-button,
 .tour-order,
 .subscribe-button,
-.btn-color-header {
+.btn-color-header, .btn-color-mateus {
     border-radius: 22px;
     background-image: -moz-linear-gradient(90deg, rgb(207, 170, 127) 0%, rgb(211, 181, 140) 46%, rgb(214, 191, 152) 100%);
     background-image: -webkit-linear-gradient(90deg, rgb(207, 170, 127) 0%, rgb(211, 181, 140) 46%, rgb(214, 191, 152) 100%);
@@ -1964,4 +1964,27 @@ ul {
 #number-2{
     top: -20px;
     display: flex;
+}
+
+.header-cart-count{
+    font-family: 'BNR', sans-serif;
+}
+
+.br{
+    display: none;
+}
+
+/* .wine-list-section .all-wine-container .slick-next, .wine-list-section .all-wine-container .slick-prev{
+    top: 380px !important;
+} */
+.product-block{
+    height: 750px;
+}
+
+.wine-list-section  ul.slick-dots{
+    bottom: 75px;
+}
+.input-error, .tour-form .tour-error-input {
+    font-family: 'BNR', sans-serif;
+    font-size: 13px;
 }

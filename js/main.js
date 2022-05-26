@@ -1,4 +1,6 @@
 $(document).ready(() => {
+  let wineKCount = [];
+
   let amountTourPlus = $('.tourAmountPlus');
   let amountTourMinus = $('.tourAmountMinus');
   let inputTourAmount = $('.tourAmount');
@@ -149,7 +151,7 @@ $(document).ready(() => {
       alcohol: 'Алк.12%',
       wineCost: 42,
       count: 1,
-      image: 'img/cart-mini-images/cart-item7.png',
+      image: 'img/cart-mini-images/cart-item17.png',
     },
     {
       name: 'Mateus Rose',
@@ -158,7 +160,7 @@ $(document).ready(() => {
       alcohol: 'Алк.13.5%',
       wineCost: 40,
       count: 1,
-      image: 'img/cart-mini-images/cart-item1.png',
+      image: 'img/cart-mini-images/cart-item16.png',
     },
   ];
 
@@ -173,6 +175,7 @@ $(document).ready(() => {
 
     $('#' + id + ' .wine-list-items').slick('refresh');
 
+
     let orderButton = $('.btn-color');
     orderButton.click((e) => {
       let currentInput = $($(e.target).parent().children('.wine-list-order-count').children('.inputAmount'));
@@ -185,7 +188,6 @@ $(document).ready(() => {
         let parsedData = JSON.parse(cartCurrentData)
         let doneData = parseInt(parsedData) + needInput;
         localStorage.setItem(wineArr[targetProduction].shortName, doneData)
-        console.log(doneData)
         renderOtherItems();
         cleanObject();
         calcSumCart();
@@ -199,19 +201,23 @@ $(document).ready(() => {
     amountPlus.click((e) => {
       let clickedElem = $(e.target);
       let id = clickedElem.data('id');
-      wineArr[id].count++;
-      clickedElem.prev('input').val(wineArr[id].count);
-      console.log(wineArr[id].count);
+      let amountInputWL = clickedElem.prev('input');
+      let zx = parseInt(amountInputWL.val())
+      amountInputWL.val(
+        ++zx
+      )
     });
 
     amountMinus.click((e) => {
       let clickedElem = $(e.target)
       let id = clickedElem.data('id');
-      if (wineArr[id].count > 1) {
-        wineArr[id].count--;
+      let amountInputWLX = clickedElem.next('input');
+      let zx = parseInt(amountInputWLX.val())
+      if (zx > 1) {
+        amountInputWLX.val(
+          --zx
+        )
       }
-      clickedElem.next('input').val(wineArr[id].count);
-      console.log(wineArr[id].count);
     })
   });
 
@@ -468,19 +474,24 @@ $('.burger-close, .burger-header-menu > a').click((e) => {
   amountPlus.click((e) => {
     let clickedElem = $(e.target);
     let id = clickedElem.data('id');
-    wineArr[id].count++;
-    clickedElem.prev('input').val(wineArr[id].count);
-    console.log(wineArr[id].count);
+    let amountInputWL = clickedElem.prev('input');
+    let zx = parseInt(amountInputWL.val())
+    amountInputWL.val(
+      ++zx
+    )
   });
+
   amountMinus.click((e) => {
     let clickedElem = $(e.target)
     let id = clickedElem.data('id');
-    if (wineArr[id].count > 1) {
-      wineArr[id].count--;
+    let amountInputWLX = clickedElem.next('input');
+    let zx = parseInt(amountInputWLX.val())
+    if (zx > 1) {
+      amountInputWLX.val(
+        --zx
+      )
     }
-    clickedElem.next('input').val(wineArr[id].count);
-    console.log(wineArr[id].count);
-  });
+  })
 
   // инкримент кол-ва тура
   amountTourPlus.click((e) => {
@@ -526,7 +537,7 @@ $('.burger-close, .burger-header-menu > a').click((e) => {
     for (let i = 0; i < localStorage.length; i++) {
       let key = localStorage.key(i);
       let values = localStorage.getItem(localStorage.key(i));
-      let productBlock = cartVisible.append('<div class = "product-i"><div class = "cart-item-image"><img src="" alt="wineImage"></div><div class = "cart-item-text"><div class = "cart-item-text-tittle cat"></div><div class = "cart-item-text-desc"></div><div class = "cart-item-text-des"></div></div><div class = "wine-list-order-count cartList"><span class="cartItemAmountMinus cartMinus">-</span><input class="cartItemAmount cartNum" type="text" value="1"><span class="cartItemAmountPlus cartPlus">+</span></div><div class = "cart-price order-price">€40</div><?xml version="1.0" ?><svg class="remove-item-bg" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" /></svg></div></div> ');
+      let productBlock = cartVisible.append('<div class = "product-i"><div class = "cart-item-image"><img src="" alt="wineImage"></div><div class = "cart-item-text"><div class = "cart-item-text-tittle cat"></div><div class = "cart-item-text-desc"></div><div class = "cart-item-text-des"></div></div><div class = "wine-list-order-count cartList"><span class="cartItemAmountMinus cartMinus">-</span><input class="cartItemAmount cartNum" readonly type="text" value="1"><span class="cartItemAmountPlus cartPlus">+</span></div><div class = "cart-price order-price">€40</div><?xml version="1.0" ?><svg class="remove-item-bg" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" /></svg></div></div> ');
       orderArray.push(key);
       let productTittle = $('.cat');
       productTittle.html(key);
@@ -579,6 +590,8 @@ $('.burger-close, .burger-header-menu > a').click((e) => {
     let currentInput = $($(e.target).parent().children('.wine-list-order-count').children('.inputAmount'));
     let needInput = parseInt(currentInput.val())
     let targetProduction = $(e.target).data('id');
+    let orderWineCount = $(e.target).prev().children('.inputAmount').val();
+    wineArr[targetProduction].count = orderWineCount;
     // let prodId = targetProduction.data('id');
     localStorage.setItem(wineArr[targetProduction], wineArr[targetProduction].count)
     if (localStorage.getItem(wineArr[targetProduction].shortName)) { // проверка условия, есть ли уже в localstorage товар
@@ -586,25 +599,46 @@ $('.burger-close, .burger-header-menu > a').click((e) => {
       let parsedData = JSON.parse(cartCurrentData)
       let doneData = parseInt(parsedData) + needInput;
       localStorage.setItem(wineArr[targetProduction].shortName, doneData)
-      console.log(doneData)
       renderOtherItems();
       cleanObject();
       calcSumCart();
+      cartSum();
     } else { // добавления вина
       localStorage.setItem(wineArr[targetProduction].shortName, wineArr[targetProduction].count);
       cleanObject();
       drawCart();
+      calcSumCart();
+      cartSum();
     }
   });
+  $('#mateus').click((e) => {
+    let currentInput = $($(e.target).prev().children('.wine-list-order-count').children('.inputAmount'));
+    let needInput = parseInt(currentInput.val())
+    let targetProduction = $(e.target).data('id');
+    // let prodId = targetProduction.data('id');
+    localStorage.setItem(wineArr[targetProduction], wineArr[targetProduction].count)
+    if (localStorage.getItem(wineArr[targetProduction].shortName)) { // проверка условия, есть ли уже в localstorage товар
+      let cartCurrentData = localStorage.getItem(wineArr[targetProduction].shortName)
+      let parsedData = JSON.parse(cartCurrentData)
+      let doneData = parseInt(parsedData) + needInput;
+      localStorage.setItem(wineArr[targetProduction].shortName, doneData)
+      renderOtherItems();
+      cleanObject();
+      calcSumCart();
+      cartSum();
+    } else { // добавления вина
+      localStorage.setItem(wineArr[targetProduction].shortName, wineArr[targetProduction].count);
+      cleanObject();
+      drawCart();
+      calcSumCart();
+      cartSum();
+    }
+  })
 
-  function cartSum() {
-    let cartSumNumber = $('.cart-count-number.cart-attr');
-    cartSumNumber.html(localStorage.length);
-  }
-  cartSum();
 
   // Подсчет суммы товаров в корзине
   function calcSumCart() {
+    wineKCount.length = 0;
     let productTittle = $('.cart-item-text-tittle');
     let wineSearch = [];
     let finalAmount = [];
@@ -618,6 +652,7 @@ $('.burger-close, .burger-header-menu > a').click((e) => {
       let nxt = nx.html();
       let index = names.indexOf(nxt);
       let winePrice = wineArr[index].wineCost;
+      wineKCount.push(prodAmount.val());
       let cost = winePrice * prodAmount.val();
       finalAmount.push(cost)
     }
@@ -628,9 +663,23 @@ $('.burger-close, .burger-header-menu > a').click((e) => {
     }
     sum += '€'
     cartPrice.html(sum)
+    
   }
 
   calcSumCart();
+
+  
+  function cartSum() {
+    let cartSumNumber = $('.cart-count-number.cart-attr');
+    let finalProdCount = 0;
+    for (let i = 0; i < wineKCount.length; i++) {
+     finalProdCount += parseInt(wineKCount[i]);
+      
+    }
+    cartSumNumber.html(finalProdCount);
+  }
+  cartSum();
+
 
   // Итерация товаров в корзине 
   function amountItteration() {
@@ -641,9 +690,9 @@ $('.burger-close, .burger-header-menu > a').click((e) => {
       let wineCount = JSON.parse(localStorage.getItem(winename));
       wineCount++;
       localStorage.setItem(winename, wineCount);
-      console.log(wineCount)
       renderOtherItems();
       calcSumCart();
+      cartSum();
     });
 
     let minusButton = $('.cartMinus');
@@ -654,12 +703,12 @@ $('.burger-close, .burger-header-menu > a').click((e) => {
       if (targ.next().val() > 1) {
         lscount -= 1;
         localStorage.setItem(winename, lscount)
-        console.log(localStorage)
       } else {
         event.preventDefault;
       }
       renderOtherItems();
       calcSumCart();
+      cartSum();
     });
   }
 
@@ -668,12 +717,12 @@ $('.burger-close, .burger-header-menu > a').click((e) => {
     let removeProd = $('.remove-item-bg');
     removeProd.click((e) => {
       let d = $(e.target);
-      console.log(d)
       let winename = d.prev().prev().prev().children('.cart-item-text-tittle').html();
       localStorage.removeItem(winename);
-      console.log(winename)
       drawCart();
     })
+    calcSumCart();
+    cartSum()
   }
 
   removeCartItem();
@@ -722,6 +771,8 @@ $('.burger-close, .burger-header-menu > a').click((e) => {
 
     // Cart Ajax 
     if (!hasError) {
+      localStorage.clear();
+      drawCart();
       $.ajax({
         method: "POST",
         url: "../mail.php",
